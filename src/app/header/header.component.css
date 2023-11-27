@@ -1,0 +1,40 @@
+.header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1167d8;
+    border-bottom: 1px solid #e7e7e7;
+    height: 60px;
+    padding: 0 20px;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-bar__logo {
+    padding-right: 20px; 
+}
+
+.left-container {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-bar__menu ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+}
+
+.header-bar__menu li {
+    margin-right: 10px;
+}
+
+
+.header-bar__menu a {
+    color: white;
+    text-decoration: none;
+}

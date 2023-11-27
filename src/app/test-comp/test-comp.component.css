@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6; 
+}
+
+form{
+    max-width: 600px; 
+    padding: 20px;
+    margin-left: auto; 
+}
+
+.form-group {
+    display: grid;
+    grid-template-columns: 150px 1fr; /* Adjust 150px to your desired label width */
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+label {
+    margin-bottom: 5px; 
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.submit {
+    background-color: #007BFF;
+    color:#fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer; 
+    margin-top: 20px;
+}
+
+.submit:hover{
+    background-color: #0056b3; 
+}
+
+.form-container {
+    background-color : #f0f0f0;
+    width: fit-content;
+    height: auto;
+    margin: 0; 
+    padding: 20px;
+}
