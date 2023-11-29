@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { switchMap} from 'rxjs/operators';
 import {from, EMPTY} from 'rxjs';
 @Injectable({
@@ -7,10 +7,10 @@ import {from, EMPTY} from 'rxjs';
 })
 export class UserService {
   private API_BASE = "https://api.sleeper.app/v1";
-  private username = new BehaviorSubject<string | null>(null);
+  private username = new Subject<string>;
   username$ = this.username.asObservable();
   
-  private userData = new BehaviorSubject<any | null>(null);
+  private userData = new Subject<any>;
   userData$ = this.userData.asObservable();
 
   setUsername(newUsername: string) {
