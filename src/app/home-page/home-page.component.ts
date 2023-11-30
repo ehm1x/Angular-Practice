@@ -3,17 +3,22 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LeagueService } from '../league.service';
 import { UserService } from '../user-service.service';
 import { Subscription } from 'rxjs';
+import { League } from '../league';
 
 @Component({
   selector: 'app-home-page',
   template: `
     <div class="home flex flex-col items-center justify-top h-screen bg-gray-100 text-gray-800">
+
       <ng-container *ngIf="username; else welcomeBlock">
         <h2 class="text-2xl font-bold mb-4">Welcome, {{this.username}}</h2>
-        <app-league-selection *ngIf="!confirmedLeague"
+
+        <app-league-selection 
+        *ngIf="!confirmedLeague"
         ></app-league-selection>
+
         <ng-container *ngIf="confirmedLeague">
-          <h2 class="text-xl mb-2">Current League : {{this.selectedLeague}}</h2>
+          <h2 class="text-xl mb-2">Current League : {{this.selectedLeague.name}}</h2>
           <nav>
             <div class="flex space-x-4">
               <a routerLink="/show-rosters" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">
@@ -53,11 +58,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   confirmedLeague = false;
   private confirmedLeagueSubscription!: Subscription;
 
-  selectedLeague = '';
+  selectedLeague: League = {};
   private selectedLeagueSubscription!: Subscription;
 
   username: string = ''; 
   private usernameSubscription!: Subscription;
+
   constructor(
     private userService: UserService,
     private leagueService: LeagueService
@@ -72,7 +78,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.confirmedLeague = confirmedLeague;
     }); 
 
-    this.selectedLeagueSubscription = this.leagueService.selectedLeague$.subscribe((selectedLeague:any) => {
+    this.selectedLeagueSubscription = this.leagueService.selectedLeague$.subscribe((selectedLeague:League) => {
       this.selectedLeague = selectedLeague;
     });
 
