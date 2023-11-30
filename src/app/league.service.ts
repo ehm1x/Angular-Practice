@@ -5,7 +5,6 @@ import { map, switchMap } from 'rxjs/operators';
 import { UserService } from './user-service.service';
 import { Player } from './player';
 import { User } from './user';
-import { Leag}
 
 @Injectable({ providedIn: 'root' })
 export class LeagueService {
@@ -43,7 +42,7 @@ export class LeagueService {
   }
 
   fetchUserLeagues(userId: string) {
-    this.http.get(`${this.API_BASE}/user/${userId}/leagues/nfl/2023 `)
+    this.http.get<Array<Object>>(`${this.API_BASE}/user/${userId}/leagues/nfl/2023 `)
       .subscribe(data => {
         this.leagues.next(data);
 
