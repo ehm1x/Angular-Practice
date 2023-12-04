@@ -1,0 +1,13 @@
+<div
+  (click)="handleClick($event)"
+  [ngStyle]="{'background-color': boxColor}" class="player-card">
+  <div class="player-info">
+    <div class="player-image-container">
+      <img [src]="imgUrl" [alt]="player.name" class="player-image" />
+    </div>
+    <p class="player-name">
+      [{{player.position}}] {{player.name}}
+    </p>
+  </div>
+  <p class="player-value">{{player.tradeValue}}</p>
+</div>
