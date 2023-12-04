@@ -1,0 +1,13 @@
+<div (click)="toggleShowPlayers()"
+     [class.hover-bg-gray-100]="!showPlayers" 
+     class="team-card">
+  <h2 class="team-name">
+    <div class="team-details">
+      <app-avatar [avatarId]="team.avatar_id"></app-avatar> 
+      <div class="team-text"> {{team.teamName}} </div>
+    </div>
+  </h2>
+  <div *ngIf="showPlayers" class="players-list">
+    <app-player *ngFor="let player of sortedAndFilteredPlayers" [player]="player"></app-player>
+  </div>
+</div>

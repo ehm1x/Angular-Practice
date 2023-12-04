@@ -1,0 +1,28 @@
+.team-card {
+    padding: 1em;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    border-radius: 0.5em; 
+  }
+  
+  .team-card:hover {
+    background-color: #cccbcb; /* approximate color for gray-100 in Tailwind CSS */
+  }
+  
+  .team-name {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .team-details {
+    display: flex;
+    align-items: center;
+  }
+  
+  .team-text {
+    padding-left: 1em;
+  }
+  
+  .players-list {
+
+  }
