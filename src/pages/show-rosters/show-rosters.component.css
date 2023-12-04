@@ -1,0 +1,28 @@
+.rosters-container {
+    background-color: #edf2f7; /* approximate color for gray-200 in Tailwind CSS */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 1em;
+  }
+  
+  .rosters-content {
+    padding: 2em;
+  }
+  
+  .rosters-title {
+    font-size: 1.875em; /* approximate size for text-3xl in Tailwind CSS */
+    font-weight: bold;
+    padding-bottom: 1.25em; /* approximate size for pb-5 in Tailwind CSS */
+  }
+  
+  .rosters-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1em;
+  }
+  
+  @media (min-width: 768px) { /* md breakpoint in Tailwind CSS */
+    .rosters-grid {
+      grid-template-columns: 1fr;
+    }
+  }

@@ -1,0 +1,8 @@
+<div class="rosters-container">
+    <div class="rosters-content">
+      <h1 class="rosters-title">League Rosters</h1>
+      <div class="rosters-grid">
+        <app-team *ngFor="let roster of rosters; let i = index" [team]="roster"></app-team>
+      </div>
+    </div>
+  </div>
