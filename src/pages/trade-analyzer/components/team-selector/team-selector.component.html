@@ -1,0 +1,4 @@
+<select (change)="selectTeam($event)">
+    <option value="" disabled selected>Select a team</option>
+    <option *ngFor="let team of teams" [value]="team.owner_id">{{ team.teamName }}</option>
+  </select>
