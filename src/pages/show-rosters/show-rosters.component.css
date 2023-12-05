@@ -12,7 +12,7 @@
   .rosters-title {
     font-size: 1.875em; /* approximate size for text-3xl in Tailwind CSS */
     font-weight: bold;
-    padding-bottom: 1.25em; /* approximate size for pb-5 in Tailwind CSS */
+ /* approximate size for pb-5 in Tailwind CSS */
   }
   
   .rosters-grid {
