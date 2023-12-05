@@ -1,0 +1,9 @@
+.container{
+    display: flex; 
+    flex-direction: row; 
+    gap: 20px; /* adjust this value to your liking */
+}
+
+.column {
+    flex: 1;
+}

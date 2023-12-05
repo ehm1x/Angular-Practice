@@ -1,1 +1,29 @@
-<p>trade-analyzer works!</p>
+<div class="container">
+    <div class="column">
+      <h2>Select Team 1</h2>
+      <app-team-selector *ngIf="!selectedTeam1" [teams]="rosters" (teamSelected)="setSelectedTeam(1, $event)"></app-team-selector>
+      <div *ngIf="selectedTeam1">
+        <button (click)="clearTeam(1)">Clear</button>
+        <h3>{{ selectedTeam1.teamName }}</h3>
+        <button *ngFor="let player of selectedTeam1.roster" (click)="selectPlayer(1, player)">{{ player.name }} {{player.tradeValue }}</button>
+      </div>
+    </div>
+  
+    <div class="column">
+      <h2>Select Team 2</h2>
+      <app-team-selector *ngIf="!selectedTeam2" [teams]="rosters" (teamSelected)="setSelectedTeam(2, $event)"></app-team-selector>
+      <div *ngIf="selectedTeam2">
+        <button (click)="clearTeam(2)">Clear</button>
+        <h3>{{ selectedTeam2.teamName }}</h3>
+        <button *ngFor="let player of selectedTeam2.roster" (click)="selectPlayer(2, player)">{{ player.name }} {{player.tradeValue }}</button>
+      </div>
+    </div>
+  
+    <div class="column">
+      <h2>Trade Results</h2>
+      <h3>Team 1 Total {{getTeamTotal(selectedPlayersTeam1)}}</h3>
+      <div *ngFor="let player of selectedPlayersTeam1">{{player.name}} {{player.tradeValue}}</div>
+      <h3>Team 2 Total {{getTeamTotal(selectedPlayersTeam2)}}</h3>
+        <div *ngFor="let player of selectedPlayersTeam2">{{player.name}} {{player.tradeValue}}</div>
+    </div>
+  </div>
