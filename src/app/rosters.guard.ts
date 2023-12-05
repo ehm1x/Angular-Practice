@@ -17,7 +17,7 @@ export class RostersGuard {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
-    const rostersExist = this.rosters !== null;
+    let rostersExist:boolean = this.rosters.length > 0;
     if(!rostersExist) {
       this.router.navigate(['/home']);
       return false;

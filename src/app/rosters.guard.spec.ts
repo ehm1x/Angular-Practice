@@ -1,17 +1,19 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
+import { CanActivate } from '@angular/router';
 
-import { rostersGuard } from './rosters.guard';
+import { RostersGuard } from './rosters.guard';
 
-describe('rostersGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => rostersGuard(...guardParameters));
+describe('RostersGuard', () => {
+  let guard: RostersGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [RostersGuard],
+    });
+    guard = TestBed.inject(RostersGuard);
   });
 
   it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
+    expect(guard).toBeTruthy();
   });
 });
