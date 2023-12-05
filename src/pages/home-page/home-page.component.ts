@@ -10,9 +10,9 @@ import { League } from '../../app/Interfaces/league';
   template: `
     <div class="container">
       <div class="home" *ngIf="username$ | async as username; else welcomeBlock">
-        <h2 style="flex align-items:center">Welcome, {{ username }}</h2>
+      <h2 style="text-align:center">Welcome, {{ username }}</h2>
         <ng-container *ngIf="confirmedLeague$ | async as confirmedLeague; else leagueSelection">
-          <div *ngIf="confirmedLeague">
+          <div class="mainMenu" *ngIf="confirmedLeague">
             <h2>Current League : {{ (selectedLeague$ | async)?.name }}</h2>
             <nav>
               <div class="flex">

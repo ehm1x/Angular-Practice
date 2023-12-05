@@ -61,3 +61,10 @@
   button:hover {
     background-color: #3182CE;
   }
+
+  .mainMenu {
+    display:flex;
+    flex-direction:column;  
+    align-items: center; 
+    
+  }
