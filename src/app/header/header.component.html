@@ -1,21 +1,29 @@
 <div>
   <div class="header-bar">
     <div class="left-container">
-      <div class="header-bar__logo">
-        <p>Logo Place holder</p>
+      <div class="header-bar__logo" style="padding-right:20px">
+        <img src="src\assets\2.svg" alt="Logo" />
       </div>
       <div class="header-bar__menu">
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Our Services</a></li>
-          <li><a href="#">Our Work</a></li>
-          <li><a href="#">Contact Us</a></li>
+        <ul style="font-weight: bold">
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/show-rosters">Show Rosters</a></li>
+          <li><a routerLink="/trade-analyzer">Trade Analyzer</a></li>
+          <li><a href="#">Player Rankings</a></li>
+          <li><a href="#">Team Rankings</a></li>
         </ul>
       </div>
     </div>
-    <div class="header-bar__logo">
-      <p>Icon</p>
-    </div>
+    <ng-container *ngIf="userService.userData$ | async as userData;">
+      <div class="header-bar__logo " *ngIf="userData.avatar">
+        <app-avatar
+          [avatarId]="userData.avatar"
+        ></app-avatar>
+      </div>
+    </ng-container>
   </div>
+
+  <ng-template #noAvatar>
+    <p>logo</p>
+  </ng-template>
 </div>
