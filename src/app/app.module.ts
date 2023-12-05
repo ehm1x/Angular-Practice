@@ -16,6 +16,8 @@ import { TeamComponent } from '../pages/show-rosters/components/team/team.compon
 import { PlayerComponent } from '../pages/show-rosters/components/player/player.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarComponent } from './avatar/avatar.component';
+import { RostersGuard } from './rosters.guard';
+import { TeamSelectorComponent } from '../pages/trade-analyzer/components/team-selector/team-selector.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { AvatarComponent } from './avatar/avatar.component';
     ShowRostersComponent,
     TeamComponent,
     PlayerComponent,
-    AvatarComponent
+    AvatarComponent,
+    TeamSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,7 @@ import { AvatarComponent } from './avatar/avatar.component';
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [RostersGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
