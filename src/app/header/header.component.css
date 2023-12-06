@@ -11,8 +11,10 @@
     z-index: 1000;
 }
 
-/* .header-bar__logo { 
-} */
+.header-bar__logo { 
+    max-width: 150px;
+    max-height: 60px; 
+}
 
 .left-container {
     display: flex;
