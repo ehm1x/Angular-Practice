@@ -1,6 +1,8 @@
 <div
-  (click)="handleClick($event)"
-  [ngStyle]="{'background-color': boxColor}" class="player-card">
+  (click)="openModal($event)"
+  [ngClass]="boxColorClass"
+  class="player-card"
+>
   <div class="player-info">
     <div class="player-image-container">
       <img [src]="imgUrl" [alt]="player.name" class="player-image" />
@@ -11,3 +13,4 @@
   </div>
   <p class="player-value">{{player.tradeValue}}</p>
 </div>
+<app-player-modal *ngIf="this.isModalOpen" [player]="player" (closeModal)="closeModal($event)"></app-player-modal>

@@ -26,7 +26,10 @@
     border-radius: 0.25rem;
     transition: background-color 0.2s ease-in-out;
     margin-left:5px; 
+    border-top-width: 0px;border-top-style: solid;border-left-width: 0px;border-left-style: solid;border-bottom-width: 0px;border-bottom-style: solid;border-right-width: 0px;border-right-style: solid;
   }
+
+
   
   .league-selection-button:hover {
     background-color: #2b6cb0;
