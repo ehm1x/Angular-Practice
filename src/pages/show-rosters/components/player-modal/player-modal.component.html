@@ -1,0 +1,23 @@
+<ng-container *ngIf="player">
+    <div (click)="handleClose($event)" class="modal-container">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-header flex justify-between items-start">
+            <div>
+              <h3 class="player-name">{{ player.name }}</h3>
+              <div class="player-details">
+                <p class="small-text">Position: {{ player.position }}</p>
+                <p class="small-text">Team: {{ player.team }}</p>
+                <p class="small-text">Projected Total Points: {{ player.projTotalPts }}</p>
+                <p class="small-text">
+                  Rest of Season Projected Total: {{ player.rosProjTotal ? (player.rosProjTotal | number : '1.0-2') : 0 }}
+                </p>
+              </div>
+            </div>
+            <img class="player-image" [src]="imgUrl" [alt]="player.name" />
+          </div>
+          <app-stats-table [player]="player"></app-stats-table>
+        </div>
+      </div>
+    </div>
+  </ng-container>

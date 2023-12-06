@@ -1,0 +1,86 @@
+
+.modal-content {
+    background: white; /* white box */
+    padding: 20px;
+    max-width: 80%; /* maximum width */
+    max-height: 90%; /* maximum height */
+    overflow: auto; /* add scroll if content is larger than max dimensions */
+    border-radius: .25rem; 
+}
+
+.player-info {
+    padding: 20px;
+}
+
+.player-name {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 500;
+    color: #1a202c;
+}
+
+.small-text {
+    font-size: .75rem; 
+    color: #000000;
+    margin:0; 
+}
+
+.player-image {
+    width: 9rem;
+    height: auto;
+}
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(189, 189, 189, 0.336);
+}
+
+.modal-container {
+    background-color: rgba(189,189,189, .4); 
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.modal-overlay {
+    position: fixed;
+    z-index: 5; /* lower than modal-container's z-index */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.082);
+}
+
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+
+
