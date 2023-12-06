@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarComponent } from './avatar/avatar.component';
 import { RostersGuard } from './rosters.guard';
 import { TeamSelectorComponent } from '../pages/trade-analyzer/components/team-selector/team-selector.component';
+import { PlayerModalComponent } from '../pages/show-rosters/components/player-modal/player-modal.component';
+import { StatsTableComponent } from '../pages/show-rosters/components/player-modal/stats-table/stats-table.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { TeamSelectorComponent } from '../pages/trade-analyzer/components/team-s
     TeamComponent,
     PlayerComponent,
     AvatarComponent,
-    TeamSelectorComponent
+    TeamSelectorComponent,
+    PlayerModalComponent,
+    StatsTableComponent
   ],
   imports: [
     BrowserModule,
