@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Player } from '../../../../app/Interfaces/player';
+import { PlayerModalComponent } from '../player-modal/player-modal.component';
 
 @Component({
   selector: 'app-player',
@@ -8,30 +9,22 @@ import { Player } from '../../../../app/Interfaces/player';
 })
 export class PlayerComponent implements OnInit {
   @Input() player!: Player;
-  isOpen = false;
+  isModalOpen = false;
   boxColor!: string;
   imgUrl!: string;
-  
+  boxColorClass:string='';
   ngOnInit() {
-    const colors = {
-      yellow: 'rgba(255, 255, 0, 0.5)', // yellow with 50% opacity
-      purple: 'rgba(128, 0, 128, 0.5)', // purple with 50% opacity
-      blue: 'rgba(0, 0, 255, 0.5)', // blue with 50% opacity
-      green: 'rgba(0, 128, 0, 0.5)', // green with 50% opacity
-      red: 'rgba(255, 0, 0, 0.5)' // red with 50% opacity
-    };
-  
-    if (this.player.tradeValue > 75) {
-      this.boxColor = colors.yellow;
-    } else if (this.player.tradeValue > 50) {
-      this.boxColor = colors.purple;
-    } else if (this.player.tradeValue > 25) {
-      this.boxColor = colors.blue;
-    } else if (this.player.tradeValue >= 10) {
-      this.boxColor = colors.green;
-    } else {
-      this.boxColor = colors.red;
-    }
+      if (this.player.tradeValue > 75) {
+        this.boxColorClass = 'bg-yellow-500';
+      } else if (this.player.tradeValue > 50) {
+        this.boxColorClass = 'bg-purple-500';
+      } else if (this.player.tradeValue > 25) {
+        this.boxColorClass = 'bg-blue-500';
+      } else if (this.player.tradeValue >= 10) {
+        this.boxColorClass = 'bg-green-500';
+      } else {
+        this.boxColorClass = 'bg-red-500';
+      }
 
     this.imgUrl =
       this.player.position === 'DEF'
@@ -39,8 +32,15 @@ export class PlayerComponent implements OnInit {
         : `https://sleepercdn.com/content/nfl/players/${this.player.player_id}.jpg`;
   }
 
-  handleClick(event: Event) {
-    event.stopPropagation();
-    this.isOpen = true;
+  openModal($event: Event){
+    $event?.stopPropagation();
+      this.isModalOpen=true; 
+    console.log(`true`); 
   }
+  closeModal($event: Event) {
+    $event?.stopPropagation();
+    this.isModalOpen = false;
+    console.log(`${this.isModalOpen}`)
+  }
+
 }
