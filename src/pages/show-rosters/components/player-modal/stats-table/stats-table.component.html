@@ -1,0 +1,29 @@
+<table *ngIf="statsConfig" class="stats-table">
+  <thead>
+    <tr>
+      <th *ngFor="let header of statsConfig.headers" class="table-header">
+        {{ header }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let weekData of weeklyStatsArray">
+      <tr *ngIf="weekData && weekData.stats">
+        <td *ngFor="let key of statsConfig.dataKeys; let i = index">
+          <div class="cell-content"
+            [ngClass]="
+              getColor(
+                statsConfig.colorNames[i],
+                getStatByKey(weekData.stats, key), 
+                findReverse(key)
+              )
+            "
+          >
+              {{ getStatByKey(weekData.stats, key) }}
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<p *ngIf="!player" class="player-not-found">Player info not found sad</p>
