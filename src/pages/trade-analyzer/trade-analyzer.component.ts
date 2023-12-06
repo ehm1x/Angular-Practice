@@ -29,18 +29,21 @@ export class TradeAnalyzerComponent {
       this.rostersSubscription.unsubscribe();
     }
 
-    setSelectedTeam(team:number, owner_id:string){
-      if(team === 1){
-        this.selectedTeam1 = this.rosters.find((roster:any) => roster.owner_id === owner_id);
-        this.selectedTeam1?.roster
-          .filter((player) => player !== null)
-          .sort((a,b) => b.tradeValue - a.tradeValue);
-      }
-      else {
-        this.selectedTeam2 = this.rosters.find((roster:any) => roster.owner_id === owner_id);
-         this.selectedTeam2?.roster
-          .filter((player) => player !== null)
-          .sort((a,b) => b.tradeValue - a.tradeValue); 
+    setSelectedTeam(team:number, owner_id:string) {
+      if (team === 1) {
+        this.selectedTeam1 = this.rosters.find((roster: any) => roster.owner_id === owner_id);
+        if (this.selectedTeam1) {
+          this.selectedTeam1.roster = this.selectedTeam1.roster
+            .filter((player) => player !== null)
+            .sort((a, b) => b.tradeValue - a.tradeValue);
+        }
+      } else {
+        this.selectedTeam2 = this.rosters.find((roster: any) => roster.owner_id === owner_id);
+        if (this.selectedTeam2) {
+          this.selectedTeam2.roster = this.selectedTeam2.roster
+            .filter((player) => player !== null)
+            .sort((a, b) => b.tradeValue - a.tradeValue);
+        }
       }
     }
 
