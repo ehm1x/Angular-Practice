@@ -1,0 +1,73 @@
+.tableContainer {
+  padding : 1rem;
+}
+.playerRankings {
+    margin-left: 1rem; 
+    margin-bottom: .25rem; 
+}
+
+.posButton {
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.posButton:hover {
+  background-color : rgb(96, 161, 245);
+}
+
+.bg-gray {
+  background-color: #e5e7eb;
+}
+.bg-gray:hover {
+  background-color: #d1d5db;
+}
+
+.bg-blue {
+  background-color: rgba(0, 119, 255, 0.568);
+}
+
+.buttonContainer {
+    display : flex;
+    justify-content : left;
+    align-items: center;
+    flex-direction: row;
+    padding: .5rem; 
+}
+
+.row {
+    border-bottom: .25px solid white;
+  }
+  
+  .row:hover {
+    background-color: #f2f2f2; /* gray-50 in Tailwind */
+  }
+  
+  .cell {
+    padding-left: 0.5rem; /* pl-2 in Tailwind */
+  }
+  
+  .position {
+    background-color: #f0f0f0; /* bg-gray-100 in Tailwind */
+  }
+  
+  .rowHeader {
+    padding : 1rem;
+
+  }
+
+  .headerLabel {
+    display: flex;
+    align-items: center;
+  }
+  
+  .headerLabel .sortIcon {
+    margin-left: 5px;
+    margin-bottom: 0px;
+  }
+
+  .basicCell{
+    padding-left: 0.5rem; /* pl-2 in Tailwind */
+    background-color: #e5e7eb;
+    width: fit-content;
+  }

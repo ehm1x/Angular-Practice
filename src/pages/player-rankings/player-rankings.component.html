@@ -1,1 +1,41 @@
-<p>player-rankings works!</p>
+<div class = "tableContainer">
+  <h1 class = "playerRankings">Player Rankings</h1>
+  <div class="buttonContainer">
+      <button *ngFor="let position of positions" class = "posButton"
+        [class.bg-blue-500]="isPositionIncluded(position)"
+        [class.bg-gray]="!isPositionIncluded(position)"
+        (click)="togglePosition(position)">
+        {{ position }}
+      </button>
+    </div>
+  <table>
+    <thead class="tableHeader">
+      <tr class="tableHeader">
+        <th class="rowHeader" *ngFor="let column of columns" (click)="column.sortValue && handleSort(column.sortValue)">
+          <div class="headerLabel">
+            {{column.label}}
+            <p *ngIf="column.sortValue" class="sortIcon">{{column.sortValue === sortField.getValue() ? (sortDirection.getValue() === -1 ? '▲' : '▼') : ''}}</p>
+          </div>
+        </th>
+      </tr>
+    </thead>
+      <tbody>
+        <tr *ngFor="let player of sortedPlayers$ | async ; let i = index">
+      
+          <td class="basicCell">
+            {{player.position}}
+          </td>
+          <td class="basicCell">
+            {{player.name}}
+          </td>
+
+          <ng-container *ngFor="let key of keys">
+            <td class = "cell" [ngClass]="getCellColor(key, player)">
+              {{getStatValue(key,player) ?? 0}}
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+  </table>
+  
+  </div>
