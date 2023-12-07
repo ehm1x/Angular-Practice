@@ -206,6 +206,15 @@ export interface Player {
         gms_active?: number;
         bonus_rec_te?: number;
         bonus_fd_te?: number;
+        rec_td?: number; // new
+        rush_att?: number; // new
+        rush_yd?: number; // new
+        rush_td?: number; // new
+        pass_att?: number; // new
+        pass_cmp?: number; // new
+        pass_yd?: number; // new
+        pass_td?: number; // new
+        pass_int?: number; // new
       };
       date: string | null;
     };
