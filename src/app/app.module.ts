@@ -20,6 +20,7 @@ import { RostersGuard } from './rosters.guard';
 import { TeamSelectorComponent } from '../pages/trade-analyzer/components/team-selector/team-selector.component';
 import { PlayerModalComponent } from '../pages/show-rosters/components/player-modal/player-modal.component';
 import { StatsTableComponent } from '../pages/show-rosters/components/player-modal/stats-table/stats-table.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { StatsTableComponent } from '../pages/show-rosters/components/player-mod
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatProgressBarModule
   ],
   providers: [RostersGuard],
   bootstrap: [AppComponent]
