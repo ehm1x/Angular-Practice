@@ -6,22 +6,27 @@ import { UserService } from './user-service.service';
 import { Player } from '../Interfaces/player';
 import { User } from '../Interfaces/user';
 import { Team } from '../../utils/team';
+import { takeUntil, filter } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class LeagueService {
   private API_BASE = "https://api.sleeper.app/v1";
+  private loadIncrement:number = 0; 
 
   private leagues = new BehaviorSubject<any[]>([]);
   private selectedLeague = new BehaviorSubject<any>(null);
   private rosters = new BehaviorSubject<any[]>([]);
   private confirmedLeague = new BehaviorSubject<boolean>(false);
   private allPlayers = new BehaviorSubject<any[]>([]);
+  private cancelRequests = new BehaviorSubject(false);
+  private loadProgress = new BehaviorSubject<number>(0);
   
   leagues$ = this.leagues.asObservable();
   selectedLeague$ = this.selectedLeague.asObservable();
   rosters$ = this.rosters.asObservable();
   confirmedLeague$ = this.confirmedLeague.asObservable();
   allPlayers$ = this.allPlayers.asObservable();
+  loadProgress$ = this.loadProgress.asObservable();
 
   private userId: string = '';
 
@@ -59,6 +64,8 @@ export class LeagueService {
   }
 
   fetchLeagueDetails(leagueId: string) {
+    this.loadProgress.next(0);
+    this.loadIncrement = this.getLoadProgressIncrement();
     combineLatest([
       this.http.get<User[]>(`${this.API_BASE}/league/${leagueId}/users`),
       this.http.get<any[]>(`${this.API_BASE}/league/${leagueId}/rosters`)
@@ -67,6 +74,7 @@ export class LeagueService {
     ).subscribe(rosters => {
       this.rosters.next(rosters);
     });
+  this.cancelRequests.next(false);
   }
 
   private constructTeams(leagueUsers: User[], leagueTeams: any[]): Observable<any[]> {
@@ -81,7 +89,8 @@ export class LeagueService {
           team.calculateTotalPts();
           team.calculateTotalWeekly();
           team.calculateTradeValue();
-          console.log(team); 
+          console.log(team);
+          this.loadProgress.next(this.loadProgress.getValue() + this.loadIncrement); 
           return team;
         })
       );
@@ -92,6 +101,7 @@ export class LeagueService {
 
   getDataForAllPlayers(players: Player[]): Observable<Player[]> {
     return this.http.post<Player[]>(`http://localhost:8080/api/nfl/player-batch`, players).pipe(
+      takeUntil(this.cancelRequests.pipe(filter(value => value))),
       map(playerData => {
         if (!playerData) {
           throw new Error('No player data available');
@@ -108,6 +118,24 @@ export class LeagueService {
 
   handleLeagueConfirm() {
     this.setConfirmedLeague(true);
+  }
+
+  changeLeague(){
+    this.setConfirmedLeague(false);
+    this.selectedLeague.next(null); 
+    this.rosters.next([]);
+    this.allPlayers.next([]); 
+    this.cancelRequests.next(true); 
+    console.log(this.confirmedLeague.getValue(), this.selectedLeague.getValue(), this.rosters.getValue(), this.allPlayers.getValue()); 
+  }
+  
+  getLoadProgressIncrement(){
+    let totalRosters:number = 0;  
+    this.http.get<any>(`${this.API_BASE}/league/${this.selectedLeague.getValue().league_id}`).subscribe(data => {
+      data = JSON.parse(data); 
+      totalRosters = data.total_rosters; 
+    })
+    return 100/totalRosters; 
   }
 }
 
