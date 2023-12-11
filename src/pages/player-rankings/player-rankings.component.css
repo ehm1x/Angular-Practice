@@ -51,7 +51,10 @@
   }
   
   .rowHeader {
-    padding : 1rem;
+    padding: .5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+
 
   }
 
