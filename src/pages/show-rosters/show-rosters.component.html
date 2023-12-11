@@ -1,8 +1,28 @@
 <div class="rosters-container">
-    <div class="rosters-content">
-      <h1 class="rosters-title">League Rosters</h1>
-      <div class="rosters-grid">
-        <app-team *ngFor="let roster of rosters; let i = index" [team]="roster"></app-team>
+  <div class="rosters-content">
+    <h1 class="rosters-title">League Rosters</h1>
+    <div class="legend">
+      <h3 class="legend-title">Legend:</h3>
+      <div class="legend-scale">
+        <span class="legend-item"> Best
+          <span class="legend-color bg-yellow-500"></span> 
+        </span>
+        <span class="legend-item">
+          <span class="legend-color bg-purple-500"></span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-color bg-blue-500"></span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-color bg-green-500"></span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-color bg-red-500"></span> Worst
+        </span>
       </div>
     </div>
+    <div class="rosters-grid hoverable">
+      <app-team *ngFor="let roster of rosters; let i = index" [team]="roster"></app-team>
+    </div>
   </div>
+</div>
