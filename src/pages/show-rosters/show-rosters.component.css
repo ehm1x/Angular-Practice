@@ -2,17 +2,17 @@
     background-color: #edf2f7; /* approximate color for gray-200 in Tailwind CSS */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
-    padding: 1em;
+    margin: 1rem; 
   }
   
   .rosters-content {
-    padding: 2em;
+    
   }
   
   .rosters-title {
     font-size: 1.875em; /* approximate size for text-3xl in Tailwind CSS */
     font-weight: bold;
- /* approximate size for pb-5 in Tailwind CSS */
+    margin-bottom: .5rem; 
   }
   
   .rosters-grid {
@@ -21,8 +21,37 @@
     gap: 1em;
   }
   
-  @media (min-width: 768px) { /* md breakpoint in Tailwind CSS */
+  @media (min-width: 768px) {
     .rosters-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+
+  .legend {
+    display: flex;
+    align-items: center;
+    margin-bottom: .25rem; 
+  }
+  
+  .legend-title {
+    margin-right: 10px;
+    margin-bottom : 0px; 
+  }
+  
+  .legend-scale {
+    display: flex;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 5px; /* Adjust the spacing between legend items as needed */
+  }
+  
+  .legend-color {
+    width: 20px; /* Size of the color square */
+    height: 20px; /* Size of the color square */
+    display: inline-block;
+    margin: 2px; /* Spacing between the square and the label */
   }
