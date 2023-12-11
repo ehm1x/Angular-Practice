@@ -14,12 +14,12 @@
             [ngClass]="
               getColor(
                 statsConfig.colorNames[i],
-                getStatByKey(weekData.stats, key), 
+                getStatByKey(weekData, key), 
                 findReverse(key)
               )
             "
           >
-              {{ getStatByKey(weekData.stats, key) }}
+              {{ getStatByKey(weekData, key) }}
           </div>
         </td>
       </tr>

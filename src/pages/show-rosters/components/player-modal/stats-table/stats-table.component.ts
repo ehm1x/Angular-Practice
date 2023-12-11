@@ -39,8 +39,12 @@ export class StatsTableComponent implements OnInit {
     return this.player ? this.STATS_CONFIG[this.player.position as keyof typeof this.STATS_CONFIG] : null; 
   }
   
-  getStatByKey(stats: { [key: string]: number }, key: string): number {
-    return stats[key as keyof typeof stats] || 0;
+  getStatByKey(weekData: WeeklyStatsEntry, key: string): number {
+    if (key === 'week') {
+      return weekData.week;
+    }
+    const stat = weekData.stats[key as keyof typeof weekData.stats];
+    return stat !== undefined ? stat : 0;
   }
 
   getColor(key:string, value:number, reverse: number) {
