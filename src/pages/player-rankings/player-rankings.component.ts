@@ -90,8 +90,7 @@ export class PlayerRankingsComponent implements OnInit {
       key.colorKey = 'RbRecYdColor';
     }
     const statValue = this.getStatColorValue(key, player);
-    let reverse =
-      key.statsKey === 'pass_int' || key.statsKey === 'rank_ppr' ? 1 : 0;
+    let reverse = key.statsKey === 'rank_ppr' ? 1 : 0;
     let color = ColorMapper.findFunc(key.colorKey, statValue, reverse);
     return color;
   }
@@ -101,6 +100,9 @@ export class PlayerRankingsComponent implements OnInit {
       let statValue = player.seasonStats.stats[key.statsKey];
       if (key.divideBy && player[key.divideBy] > 0) {
         statValue /= player[key.divideBy];
+      }
+      if(key.statsKey === 'pass_int'){
+        statValue = player.seasonStats.stats.pass_int_ratio; 
       }
       return statValue;
     } else {
@@ -114,7 +116,7 @@ export class PlayerRankingsComponent implements OnInit {
         ? player.seasonStats.stats[key.statsKey]
         : 0;
     if (key.fixedDecimal) {
-      statValue = statValue.toFixed(2);
+        statValue = statValue.toFixed(2);
     } else {
       statValue = Math.round(statValue);
     }
@@ -124,22 +126,24 @@ export class PlayerRankingsComponent implements OnInit {
     this.allPlayersSubscription.unsubscribe();
   }
   columns: Column[] = [
-    { label: 'Position', sortValue: null },
-    { label: 'Name', sortValue: null },
+    { label: 'Pos', sortValue: null },
+    { label: 'Player Name', sortValue: null },
     { label: 'Rank', sortValue: 'rank_ppr' },
-    { label: 'Season Total', sortValue: 'pts_ppr' },
+    { label: 'Total', sortValue: 'pts_ppr' },
     { label: 'Targets', sortValue: 'rec_tgt' },
     { label: 'Receptions', sortValue: 'rec' },
-    { label: 'Receiving Yards', sortValue: 'rec_yd' },
-    { label: "Rec TD's", sortValue: 'rec_td' },
+    { label: 'Rec Yards', sortValue: 'rec_yd' },
+    { label: "Rec TD", sortValue: 'rec_td' },
     { label: 'Rush Att', sortValue: 'rush_att' },
-    { label: "Rush Yd's", sortValue: 'rush_yd' },
-    { label: "Rush TD's", sortValue: 'rush_td' },
+    { label: "Rush Yd", sortValue: 'rush_yd' },
+    { label: "Rush TD", sortValue: 'rush_td' },
     { label: 'Pass Att', sortValue: 'pass_att' },
     { label: 'Pass Comp', sortValue: 'pass_cmp' },
-    { label: "Pass YD's", sortValue: 'pass_yd' },
+    { label: "Pass Yd", sortValue: 'pass_yd' },
     { label: 'Pass TD', sortValue: 'pass_td' },
-    { label: 'INT', sortValue: 'pass_int' },
+    { label: 'INT', sortValue: 'pass_int'},
+    { label: 'ATT/INT', sortValue: 'pass_int_ratio' },
+   
   ];
   keys = [
     { statsKey: 'rank_ppr', colorKey: 'SeasonRankColor', defaultValue: 99 },
@@ -217,11 +221,16 @@ export class PlayerRankingsComponent implements OnInit {
     },
     {
       statsKey: 'pass_int',
-      colorKey: 'SeasonIntColor',
-      divideBy: null,
+      colorKey: 'IntRatioColor',
       fixedDecimal: false,
+    },
+    {
+      statsKey: 'pass_int_ratio',
+      colorKey: 'IntRatioColor',
+      fixedDecimal: true,
       defaultValue: 0,
     },
+
   ];
   positions = ['QB', 'RB', 'WR', 'TE', 'K', 'DEF'];
 
@@ -254,7 +263,8 @@ const columns: Column[] = [
   { label: 'Pass Comp', sortValue: 'pass_cmp' },
   { label: "Pass YD's", sortValue: 'pass_yd' },
   { label: 'Pass TD', sortValue: 'pass_td' },
-  { label: 'TD/INT', sortValue: 'pass_int' },
+  { label: 'INT', sortValue: 'pass_int'}, 
+  { label: 'TD/INT', sortValue: 'pass_int_ratio' },
 ];
 
 interface SeasonStats {
@@ -298,4 +308,5 @@ interface SeasonStats {
   pass_yd?: number; // new
   pass_td?: number; // new
   pass_int?: number; // new
+  pass_int_ratio?: number; // new
 }
