@@ -215,6 +215,7 @@ export interface Player {
         pass_yd?: number; // new
         pass_td?: number; // new
         pass_int?: number; // new
+        pass_int_ratio?: number; 
       };
       date: string | null;
     };
