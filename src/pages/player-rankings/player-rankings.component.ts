@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LeagueService } from '../../app/services/league.service';
 import { Player } from '../../app/Interfaces/player';
-import { Subscription, combineLatest } from 'rxjs';
+import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 import { ColorMapper } from '../../utils/color-mapper';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-player-rankings',
@@ -13,10 +12,10 @@ import { map } from 'rxjs/operators';
 })
 export class PlayerRankingsComponent implements OnInit {
   allPlayers!: Player[];
-  sortedPlayers$!: Observable<Player[]>; // This will be our Observable of sorted players
-  allPlayersSubscription!: Subscription;
+  sortedPlayers$!: Observable<Player[]>; 
+
   sortField: BehaviorSubject<keyof SeasonStats> = new BehaviorSubject(
-    `pos_rank_ppr` as keyof SeasonStats
+    `pts_ppr` as keyof SeasonStats
   );
   sortPositions: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
   sortDirection = new BehaviorSubject(-1);
@@ -24,20 +23,38 @@ export class PlayerRankingsComponent implements OnInit {
   constructor(public leagueService: LeagueService) {}
 
   ngOnInit() {
-    this.allPlayersSubscription = this.leagueService.allPlayers$.subscribe(
-      (players: Player[]) => {
-        this.allPlayers = players.filter(
-          (player: Player) => player !== null && player.seasonStats
-        );
-        this.sortPlayers();
-      }
-    );
-
+    // Combine the players data stream with the sort criteria streams
     this.sortedPlayers$ = combineLatest([
+      this.leagueService.allPlayers$,
       this.sortField,
       this.sortPositions,
       this.sortDirection,
-    ]).pipe(map(() => this.sortPlayers()));
+    ]).pipe(
+      // Filter out any emissions where players data is not yet loaded
+      filter(([players]) => players && players.length > 0),
+      // Apply the sorting logic
+      map(([players, sortField, sortPositions, sortDirection]) => {
+        // Filter and sort the players
+        return players
+          .filter((player) => {
+            // Check if player is not null and seasonStats exists
+            if (player && player.seasonStats && player.seasonStats.stats) {
+              // Now it's safe to check for the sorted field and if the position matches
+              const hasSortedField = player.seasonStats.stats.hasOwnProperty(sortField);
+              const matchesPosition = sortPositions.length > 0 ? sortPositions.includes(player.position) : true;
+              return hasSortedField && matchesPosition;
+            }
+            return false; // Player is null or seasonStats is missing, filter out this player
+          })
+          .sort((a, b) => this.comparePlayers(a, b, sortField, sortDirection));
+      })
+    );
+  }
+  
+  private comparePlayers(a: Player, b: Player, sortField: keyof SeasonStats, sortDirection: number): number {
+    const aValue = a.seasonStats.stats[sortField] ?? 0;
+    const bValue = b.seasonStats.stats[sortField] ?? 0;
+    return sortDirection * (aValue - bValue);
   }
 
   sortPlayers(): Player[] {
@@ -122,9 +139,7 @@ export class PlayerRankingsComponent implements OnInit {
     }
     return statValue;
   }
-  ngOnDestroy() {
-    this.allPlayersSubscription.unsubscribe();
-  }
+
   columns: Column[] = [
     { label: 'Pos', sortValue: null },
     { label: 'Player Name', sortValue: null },
@@ -299,14 +314,14 @@ interface SeasonStats {
   gms_active?: number;
   bonus_rec_te?: number;
   bonus_fd_te?: number;
-  rec_td?: number; // new
-  rush_att?: number; // new
-  rush_yd?: number; // new
-  rush_td?: number; // new
-  pass_att?: number; // new
-  pass_cmp?: number; // new
-  pass_yd?: number; // new
-  pass_td?: number; // new
-  pass_int?: number; // new
-  pass_int_ratio?: number; // new
+  rec_td?: number; 
+  rush_att?: number; 
+  rush_yd?: number; 
+  rush_td?: number; 
+  pass_att?: number; 
+  pass_cmp?: number; 
+  pass_yd?: number; 
+  pass_td?: number;
+  pass_int?: number;
+  pass_int_ratio?: number; 
 }
