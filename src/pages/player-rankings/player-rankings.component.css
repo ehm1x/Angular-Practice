@@ -11,6 +11,10 @@
   border-radius: 0.25rem;
 }
 
+.tableContainer {
+  width:100%;
+}
+
 .posButton:hover {
   background-color : rgb(96, 161, 245);
 }
@@ -44,6 +48,7 @@
   
   .cell {
     padding-left: 0.5rem; /* pl-2 in Tailwind */
+    user-select:none; 
   }
   
   .position {
@@ -54,13 +59,12 @@
     padding: .5rem;
     margin-left: 1rem;
     margin-right: 1rem;
-
-
   }
 
   .headerLabel {
     display: flex;
     align-items: center;
+    user-select: none;
   }
   
   .headerLabel .sortIcon {

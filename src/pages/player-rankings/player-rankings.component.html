@@ -8,13 +8,13 @@
         {{ position }}
       </button>
     </div>
-  <table>
+  <table class="tableContainer">
     <thead class="tableHeader">
       <tr class="tableHeader">
         <th class="rowHeader" *ngFor="let column of columns" (click)="column.sortValue && handleSort(column.sortValue)">
           <div class="headerLabel">
             {{column.label}}
-            <p *ngIf="column.sortValue" class="sortIcon">{{column.sortValue === sortField.getValue() ? (sortDirection.getValue() === -1 ? '▲' : '▼') : ''}}</p>
+            <p *ngIf="column.sortValue" class="sortIcon">{{column.sortValue === sortField.getValue() ? (sortDirection.getValue() === 1 ? '▲' : '▼') : ''}}</p>
           </div>
         </th>
       </tr>
