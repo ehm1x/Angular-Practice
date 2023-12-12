@@ -64,18 +64,23 @@ export class LeagueService {
   }
 
   fetchLeagueDetails(leagueId: string) {
-    this.loadProgress.next(0);
-    this.loadIncrement = this.getLoadProgressIncrement();
-    combineLatest([
-      this.http.get<User[]>(`${this.API_BASE}/league/${leagueId}/users`),
-      this.http.get<any[]>(`${this.API_BASE}/league/${leagueId}/rosters`)
-    ]).pipe(
+    this.getLoadProgressIncrement(leagueId).pipe(
+      switchMap(loadIncrement => {
+        // Now that we have the load increment, we can proceed with fetching details
+        this.loadProgress.next(0);
+        this.loadIncrement = loadIncrement; // Set the increment
+        return combineLatest([
+          this.http.get<User[]>(`${this.API_BASE}/league/${leagueId}/users`),
+          this.http.get<any[]>(`${this.API_BASE}/league/${leagueId}/rosters`)
+        ]);
+      }),
       switchMap(([leagueUsers, leagueTeams]) => this.constructTeams(leagueUsers, leagueTeams))
     ).subscribe(rosters => {
       this.rosters.next(rosters);
     });
   this.cancelRequests.next(false);
   }
+
 
   private constructTeams(leagueUsers: User[], leagueTeams: any[]): Observable<any[]> {
     const teams = leagueUsers.map(userTeam => {
@@ -89,7 +94,6 @@ export class LeagueService {
           team.calculateTotalPts();
           team.calculateTotalWeekly();
           team.calculateTradeValue();
-          console.log(team);
           this.loadProgress.next(this.loadProgress.getValue() + this.loadIncrement); 
           return team;
         })
@@ -126,17 +130,16 @@ export class LeagueService {
     this.rosters.next([]);
     this.allPlayers.next([]); 
     this.cancelRequests.next(true); 
-    console.log(this.confirmedLeague.getValue(), this.selectedLeague.getValue(), this.rosters.getValue(), this.allPlayers.getValue()); 
   }
   
-  getLoadProgressIncrement(){
-    let totalRosters:number = 0;  
-    this.http.get<any>(`${this.API_BASE}/league/${this.selectedLeague.getValue().league_id}`).subscribe(data => {
-      data = JSON.parse(data); 
-      totalRosters = data.total_rosters; 
-    })
-    return 100/totalRosters; 
+  getLoadProgressIncrement(leagueId: string): Observable<number> {
+    return this.http.get<any>(`${this.API_BASE}/league/${leagueId}`)
+      .pipe(
+        map(data => {
+          const totalRosters = data.total_rosters;
+          return totalRosters ? 100 / totalRosters : 0;
+        })
+      );
   }
 }
-
 
