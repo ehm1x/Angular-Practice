@@ -12,7 +12,6 @@ export class RostersGuard {
   constructor(private leagueService: LeagueService, private router: Router) {
     this.rosterSubscription = this.leagueService.rosters$.subscribe((rosters) => {
       this.rosters = rosters; 
-      console.log(this.rosters); 
     })
   }
 
