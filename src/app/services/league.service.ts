@@ -7,6 +7,7 @@ import { Player } from '../Interfaces/player';
 import { User } from '../Interfaces/user';
 import { Team } from '../../utils/team';
 import { takeUntil, filter } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class LeagueService {
@@ -83,10 +84,16 @@ export class LeagueService {
 
 
   private constructTeams(leagueUsers: User[], leagueTeams: any[]): Observable<any[]> {
+    console.log(leagueUsers);
+    console.log(leagueTeams);
     const teams = leagueUsers.map(userTeam => {
       const team = new Team(userTeam.display_name, userTeam.user_id, userTeam.avatar);
       const roster = leagueTeams.find(roster => roster.owner_id === userTeam.user_id);
-
+      if (!roster) {
+        console.warn(`No roster found for user with ID: ${userTeam.user_id}`);
+        return null;
+      }
+      
       return this.getDataForAllPlayers(roster.players).pipe(
         map(players => {
           team.roster = players;
@@ -98,7 +105,7 @@ export class LeagueService {
           return team;
         })
       );
-    });
+      }).filter(observable => observable !== null);
 
     return forkJoin(teams);
   }
@@ -142,4 +149,3 @@ export class LeagueService {
       );
   }
 }
-
