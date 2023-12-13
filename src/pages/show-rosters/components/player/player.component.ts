@@ -35,12 +35,10 @@ export class PlayerComponent implements OnInit {
   openModal($event: Event){
     $event?.stopPropagation();
       this.isModalOpen=true; 
-    console.log(`true`); 
   }
   closeModal($event: Event) {
     $event?.stopPropagation();
     this.isModalOpen = false;
-    console.log(`${this.isModalOpen}`)
   }
 
 }
