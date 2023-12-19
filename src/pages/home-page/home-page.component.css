@@ -26,7 +26,7 @@
   }
   
   .container nav a:hover {
-    background-color: #3182CE;
+    background-color: #215e91;
   }
   
   .username-input {
@@ -72,4 +72,8 @@
   .bar{
     height:2rem; 
     margin-top: 1rem; 
+  }
+
+  .a {
+
   }
